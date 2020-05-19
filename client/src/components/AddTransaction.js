@@ -7,7 +7,7 @@ const AddTransaction = () => {
 
     const { addTransaction } = useContext(GlobalContext)
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault()
 
         const newTransaction = {
@@ -16,7 +16,10 @@ const AddTransaction = () => {
             amount: +amount
         }
 
-        addTransaction(newTransaction)
+        await addTransaction(newTransaction)
+
+        setText('')
+        setAmount(0)
     }
 
     return (
