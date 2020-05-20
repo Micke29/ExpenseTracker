@@ -8,6 +8,7 @@ const connectDB = require('./config/db')
 
 connectDB()
 
+const userRoutes = require('./routes/user')
 const transactionsRoutes = require('./routes/transactions')
 
 const app = express()
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json())
 
+app.use('/api/v1/auth', userRoutes)
 app.use('/api/v1/transactions', transactionsRoutes)
 
 if (process.env.NODE_ENV === 'production') {
