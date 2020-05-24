@@ -44,12 +44,14 @@ KEY | VALUE
 `USER_TOKEN` | `YOUR_AUTHENTICATION_PASSPHRASE`
 
 For install with Docker:<br />
+Declare `NODE_ENV` with value `production` in `/config/config.env`
+
 ```bash
 # Building your image
 docker build -t expense-tracker/node-web-app .
 
 # Run the image
-docker run -p <your port>:5000 -d expense-tracker/node-web-app
+docker run -p <your port>:<PORT, 3000 by default> -d expense-tracker/node-web-app
 
 # Get container ID
 docker ps
@@ -61,6 +63,6 @@ docker logs <container id>
 XXXX-XX-XXTXX:XX:XX: PM2 log: Launching in no daemon mode
 XXXX-XX-XXTXX:XX:XX: PM2 log: App [server:0] starting in -fork mode-
 XXXX-XX-XXTXX:XX:XX: PM2 log: App [server:0] online
-Server running in production mode on port: 5000
+Server running in production mode on port: 3000
 MongoDB Connected: XXX.XXX.XXX.XXX
 ```
