@@ -9,3 +9,7 @@
 /client/.gitignore
 /client/node_modules
 /client/README.md
+
+# Docker
+/.dockerignore
+/Dockerfile
