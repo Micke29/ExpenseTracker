@@ -6,12 +6,15 @@ const auth = require('../middlewares/auth')
 const { getTransactions, addTransaction, deleteTransaction } = require('../controllers/transactions')
 
 router
+    .route('/:userId')
+    .get(auth, getTransactions);
+
+router
     .route('/')
-    .get(auth, getTransactions)
     .post(auth, addTransaction);
 
 router
-    .route('/:id')
+    .route('/:userId/:id')
     .delete(auth, deleteTransaction);
 
 module.exports = router

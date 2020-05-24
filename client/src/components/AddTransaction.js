@@ -11,9 +11,9 @@ const AddTransaction = () => {
         e.preventDefault()
 
         const newTransaction = {
-            id: Math.floor(Math.random() * 100000000),
             text,
-            amount: +amount
+            amount: +amount,
+            userId: sessionStorage.getItem('userId')
         }
 
         await addTransaction(newTransaction)

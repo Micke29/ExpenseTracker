@@ -3,18 +3,12 @@ const userValidationError = require('../middlewares/userValidationError')
 
 /**
  * @desc    Get all transactions
- * @route   GET /api/v1/transactions
+ * @route   GET /api/v1/transactions/:userId
  * @access  Private
  */
 exports.getTransactions = async (req, res, next) => {
-    if (req.body.userId === undefined) {
-        return res.status(401).json({
-            success: false,
-            error: 'Invalid User ID'
-        })
-    }
     try {
-        const transactions = await Transaction.find({ userId: req.body.userId })
+        const transactions = await Transaction.find({ userId: req.params.userId })
 
         return res.status(200).json({
             success: true,
@@ -49,7 +43,7 @@ exports.addTransaction = async (req, res, next) => {
 
 /**
  * @desc    Delete transaction
- * @route   DELETE /api/v1/transactions/:id
+ * @route   DELETE /api/v1/transactions/:userId/:id
  * @access  Private
  */
 exports.deleteTransaction = async (req, res, next) => {
@@ -63,7 +57,7 @@ exports.deleteTransaction = async (req, res, next) => {
             })
         }
 
-        if (transaction.userId !== req.body.userId) {
+        if (transaction.userId !== req.params.userId) {
             return res.status(401).json({
                 success: false,
                 error: 'Invalid User ID'

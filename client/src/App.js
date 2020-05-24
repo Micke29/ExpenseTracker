@@ -1,26 +1,24 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { GlobalProvider } from './context/GlobalState'
 
 import './styles/App.css';
 
-import { GlobalProvider } from './context/GlobalState'
-
-import Header from './components/Header';
-import Balance from './components/Balance';
-import IncomeExpenses from './components/IncomeExpenses';
-import TransactionList from './components/TransactionList';
-import AddTransaction from './components/AddTransaction';
+import Account from './pages/Account';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 function App() {
   return (
-    <GlobalProvider>
-      <Header />
-      <div className="container">
-        <Balance />
-        <IncomeExpenses />
-        <TransactionList />
-        <AddTransaction />
-      </div>
-    </GlobalProvider>
+    <Router>
+      <Switch>
+        <GlobalProvider>
+          <Route path="/" exact component={Account} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
+        </GlobalProvider>
+      </Switch>
+    </Router>
   );
 }
 

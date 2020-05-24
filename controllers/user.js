@@ -34,11 +34,7 @@ exports.signup = (req, res, next) => {
                             success: false,
                             error: 'Server Error'
                         }))
-                }
-                    /*() => res.status(201).json({
-                    success: true,
-                    data: {}
-                })*/)
+                })
                 .catch(err => {
                     userValidationError(err, res)
                 })
@@ -55,11 +51,10 @@ exports.signup = (req, res, next) => {
  * @access  Public
  */
 exports.login = (req, res, next) => {
-    return console.log(req.headers.authorization)
     User.findOne({ username: req.body.username })
         .then(user => {
             if (!user) {
-                return res.status(204).json({
+                return res.status(400).json({
                     success: false,
                     error: 'Unknown User or Wrong Password !'
                 })
@@ -67,7 +62,7 @@ exports.login = (req, res, next) => {
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
-                        return res.status(204).json({
+                        return res.status(400).json({
                             success: false,
                             error: 'Unknown User or Wrong Password !'
                         })

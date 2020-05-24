@@ -17,15 +17,67 @@ export const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, initialState)
 
     // Actions
-    async function getTransactions() {
+    async function signupUser(user) {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
         try {
-            const res = await axios.get('/api/v1/transactions')
+            const res = await axios.post('/api/v1/auth/signup', user, config)
+
+            dispatch({
+                type: 'SIGNUP_USER',
+                payload: res.data.data
+            })
+        } catch (err) {
+            dispatch({
+                type: 'USER_ERROR',
+                payload: err.response.data.error
+            })
+        }
+    }
+
+    async function loginUser(user) {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+            const res = await axios.post('/api/v1/auth/login', user, config)
+
+            dispatch({
+                type: 'LOGIN_USER',
+                payload: res.data.data
+            })
+        } catch (err) {
+            dispatch({
+                type: 'USER_ERROR',
+                payload: err
+            })
+        }
+    }
+
+    async function getTransactions() {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `token ${sessionStorage.getItem('token')}`
+            }
+        }
+
+        try {
+            const res = await axios.get(`/api/v1/transactions/${sessionStorage.getItem('userId')}`, config)
 
             dispatch({
                 type: 'GET_TRANSACTIONS',
                 payload: res.data.data
             })
         } catch (err) {
+            console.error(err.response.data.error)
             dispatch({
                 type: 'TRANSACTION_ERROR',
                 payload: err.response.data.error
@@ -34,8 +86,14 @@ export const GlobalProvider = ({ children }) => {
     }
 
     async function deleteTransaction(id) {
+        const config = {
+            headers: {
+                'Authorization': `token ${sessionStorage.getItem('token')}`
+            }
+        }
+
         try {
-            await axios.delete(`/api/v1/transactions/${id}`)
+            await axios.delete(`/api/v1/transactions/${sessionStorage.getItem('userId')}/${id}`, config)
 
             dispatch({
                 type: 'DELETE_TRANSACTION',
@@ -52,7 +110,8 @@ export const GlobalProvider = ({ children }) => {
     async function addTransaction(transaction) {
         const config = {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `token ${sessionStorage.getItem('token')}`
             }
         }
 
@@ -75,6 +134,8 @@ export const GlobalProvider = ({ children }) => {
         transactions: state.transactions,
         error: state.error,
         loading: state.loading,
+        signupUser,
+        loginUser,
         getTransactions,
         deleteTransaction,
         addTransaction
