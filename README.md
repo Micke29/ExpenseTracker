@@ -20,6 +20,19 @@ Runs the client in the development mode.
 
 Runs app and client in the development mode.
 
+## Available API routes
+
+### `/api/v1/auth`
+
+* `POST /signup`, sign up a user
+* `POST /login`, log in user
+
+### `/api/v1/transactions`
+
+* `GET /:userId`, view a user's account
+* `POST /`, add transaction at user's account
+* `DELETE /:userId/:id`, delete transaction from user's account
+
 ## Install app
 
 After executing command `npm install`, create a `config.env` file into `/config` with inside:<br />
