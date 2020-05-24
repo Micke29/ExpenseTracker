@@ -1,0 +1,11 @@
+# Server
+/.git
+/.gitignore
+/node_modules
+/README.md
+/requests.http
+
+# Client
+/client/.gitignore
+/client/node_modules
+/client/README.md
