@@ -42,3 +42,25 @@ KEY | VALUE
 `PORT` | `YOUR_PORT` (3000 by default)
 `DATABASE_URL` | `YOUR_MONGODB_URL`
 `USER_TOKEN` | `YOUR_AUTHENTICATION_PASSPHRASE`
+
+For install with Docker:<br />
+```bash
+# Building your image
+docker build -t expense-tracker/node-web-app .
+
+# Run the image
+docker run -p <your port>:5000 -d expense-tracker/node-web-app
+
+# Get container ID
+docker ps
+
+# Print app output
+docker logs <container id>
+
+# If it's work
+XXXX-XX-XXTXX:XX:XX: PM2 log: Launching in no daemon mode
+XXXX-XX-XXTXX:XX:XX: PM2 log: App [server:0] starting in -fork mode-
+XXXX-XX-XXTXX:XX:XX: PM2 log: App [server:0] online
+Server running in production mode on port: 5000
+MongoDB Connected: XXX.XXX.XXX.XXX
+```
