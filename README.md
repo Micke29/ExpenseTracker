@@ -43,7 +43,8 @@ KEY | VALUE
 `DATABASE_URL` | `YOUR_MONGODB_URL`
 `USER_TOKEN` | `YOUR_AUTHENTICATION_PASSPHRASE`
 
-For install with Docker:<br />
+### For install with Docker
+
 Declare `NODE_ENV` with value `production` in `/config/config.env`
 
 ```bash

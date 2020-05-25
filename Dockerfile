@@ -5,11 +5,12 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm ci --only=production
+
+COPY . ./
+
 RUN npm install --prefix client
 RUN npm run build --prefix client
 RUN npm install pm2 -g
-
-COPY . ./
 
 EXPOSE 5000
 
